@@ -1,0 +1,332 @@
+{
+  "version": 2,
+  "seed": 1337,
+
+  "obfuscation_aggressiveness": "risk_aware_max_safe",
+  "auto_apply_safe_transforms": true,
+  "allow_tier0_cosmetic_transforms": true,
+  "max_selected_noop_ratio": 0.40,
+  "preserve_external_abi": true,
+  "allow_global_symbol_renaming": false,
+  "allow_string_table_obfuscation": true,
+  "allow_constant_pool_obfuscation": true,
+  "allow_cfg_flatten_simple_returns": true,
+  "allow_cfg_flatten_protected_regions": false,
+  "reject_on_external_call_reordering": true,
+  "reject_on_auth_guard_rewrite": true,
+
+  "reject_on_new_high_vuln": true,
+  "reject_on_new_medium_in_high_sensitivity_fn": true,
+  "reject_on_new_medium_in_hot_fn": true,
+  "reject_on_new_issue_in_protected_region": true,
+  "reject_on_transform_touching_protected_region": false,
+
+  "security_high_sensitivity_threshold": 0.65,
+  "security_hot_runtime_threshold": 0.50,
+  "security_protected_region_overlap_window": 1,
+  "security_issue_transform_line_window": 3,
+
+  "security_strict_protected_region_tags": [
+    "access_control_guard",
+    "external_call_site",
+    "revert_semantics_region"
+  ],
+
+  "gas_budget_pct": 25.0,
+  "gas_metric": "median",
+  "min_common_tests": 1,
+
+  "llm_model": "gpt-4.1-mini",
+  "llm_temperature": 0.2,
+  "llm_max_rounds": 3,
+  "llm_max_tokens": 1800,
+  "llm_default_tier": 3,
+  "llm_plan_schema": "schemas/llm_transform_plan.schema.json",
+  "llm_test_generation_enabled": false,
+  "llm_require_semantic_contract": true,
+  "llm_require_composition_graph": true,
+
+  "composition_enforce_hard_unsafe_pairs": true,
+  "composition_use_ordering_constraints": true,
+  "composition_bonus_weight": 0.15,
+
+  "semantic_validation_enabled": true,
+  "semantic_reject_on_avoid_region_overlap": true,
+  "semantic_reject_on_unsafe_composition": true,
+  "semantic_reject_on_order_violation": true,
+
+  "retain_only_with_gain": true,
+  "retain_on_target_touch": true,
+  "retain_on_semantic_value": true,
+
+  "augmentation_rounds": 2,
+  "max_generated_tests": 6,
+
+  "search_max_subset_size": 4,
+  "search_min_subset_size": 1,
+  "search_max_candidates": 28,
+  "search_enable_param_mutation": false,
+  "optimizer_min_subset_size": 1,
+
+  "optimizer_weights": {
+    "w1_potency": 0.50,
+    "w2_overhead": 0.25,
+    "w3_risk": 0.25
+  },
+
+  "preferred_candidate_semantic_cost_threshold": 2.0,
+
+  "min_applied_transforms": 2,
+  "min_applied_functions": 1,
+  "min_distinct_transform_ids": 2,
+  "min_transforms_per_function": 2,
+  "max_transforms_per_function": 8,
+  "apply_all_safe_transforms_when_allowed": true,
+  "optimizer_respect_full_safe_plan": true,
+
+  "optimizer_require_noncosmetic_transform": true,
+  "optimizer_min_noncosmetic_transforms": 1,
+  "optimizer_penalize_noop_selected": true,
+  "optimizer_noop_penalty": 0.08,
+  "optimizer_penalize_cosmetic_only": true,
+  "optimizer_cosmetic_only_penalty": 0.12,
+  "optimizer_reward_distinct_families": true,
+  "optimizer_family_diversity_bonus": 0.06,
+  "optimizer_reward_control_or_data_transform": true,
+  "optimizer_control_data_bonus": 0.08,
+
+  "optimizer_keep_transform_ids": [
+    "layout_scramble_v1",
+    "rename_identifiers_v2_scoped",
+    "string_split_v1",
+    "stack_variable_aliasing_v1",
+    "opaque_predicate_v1"
+  ],
+
+  "coverage_cold_threshold": 0.1,
+  "coverage_required": true,
+  "coverage_fallback_ir_minimum": true,
+  "coverage_reject_on_drop": false,
+  "coverage_use_line_coverage_gate": true,
+  "coverage_min_line_coverage_ratio": 0.7,
+  "coverage_max_dropped_lines": 20,
+  "coverage_allow_function_name_drift": true,
+
+  "enable_transform_v2_family": true,
+  "opaque_predicate_v2_max_sites": 2,
+  "boolean_split_v2_max_conditions": 2,
+  "inline_internal_v2_max_inline": 2,
+  "cfg_flatten_v2_min_top_level_statements": 4,
+  "constant_encoding_v2_max_replacements": 8,
+
+  "tiering": {
+    "econ_thresholds": {
+      "tier1": 0.15,
+      "tier2": 0.4,
+      "tier3": 0.7
+    },
+    "security_caps": {
+      "INFO": 3,
+      "LOW": 3,
+      "MEDIUM": 2,
+      "HIGH": 0,
+      "CRITICAL": 0
+    },
+    "coverage_guards": {
+      "min_coverage_for_tier1": 0.01,
+      "min_coverage_for_tier2": 0.05,
+      "min_coverage_for_tier3": 0.12,
+      "min_exec_weight_for_tier1": 0.0
+    },
+    "view_pure_max_tier": 2,
+    "internal_like_max_tier": 1,
+    "access_controlled_medium_plus_max_tier": 0,
+    "require_loops_for_tier3": true,
+    "policy_sensitivity_caps": {
+      "INFO": 3,
+      "LOW": 2,
+      "MEDIUM": 1,
+      "HIGH": 0
+    },
+    "protected_region_caps": {
+      "any": 1,
+      "access_control_or_external_call": 0
+    }
+  },
+
+  "transform_caps": {
+    "dispatcher_cfg_virtualization_v1": 2,
+    "opaque_storage_slot_indirection_v1": 2,
+    "stack_variable_aliasing_v1": 2,
+    "cfg_flatten_v1": 2,
+    "cfg_flatten_v2_hybrid": 2,
+    "yul_microblock_v1": 2,
+    "inline_internal_v1": 2,
+    "inline_internal_v2_diversified": 2,
+    "modifier_expand_v1": 2,
+    "local_to_state_lift_v1": 2,
+    "scalar_to_struct_indirection_v1": 2,
+    "public_state_accessor_indirection_v1": 2,
+    "chaotic_opaque_predicate_v1": 2,
+    "opaque_predicate_v2_entangled": 2,
+    "storage_indirection_v1": 2,
+    "string_split_v1": 2,
+    "algebraic_identities_v1": 2,
+    "constant_encoding_v2_layered": 2,
+    "boolean_split_v2_distributed": 2
+  },
+
+  "risky_transforms_on_high_severity": [
+    "dispatcher_cfg_virtualization_v1",
+    "opaque_storage_slot_indirection_v1",
+    "cfg_flatten_v1",
+    "cfg_flatten_v2_hybrid",
+    "yul_microblock_v1",
+    "local_to_state_lift_v1",
+    "scalar_to_struct_indirection_v1",
+    "modifier_expand_v1",
+    "opaque_predicate_v2_entangled",
+    "inline_internal_v2_diversified"
+  ],
+
+  "transform_vulnerability_matrix": {
+    "reentrancy": {
+      "forbidden_transform_ids": [
+        "dispatcher_cfg_virtualization_v1",
+        "cfg_flatten_v1",
+        "cfg_flatten_v2_hybrid",
+        "yul_microblock_v1",
+        "local_to_state_lift_v1",
+        "scalar_to_struct_indirection_v1",
+        "public_state_accessor_indirection_v1",
+        "opaque_storage_slot_indirection_v1"
+      ],
+      "forbidden_risk_tags": [
+        "touches_storage",
+        "touches_control_flow"
+      ]
+    },
+    "external_call": {
+      "forbidden_transform_ids": [
+        "dispatcher_cfg_virtualization_v1",
+        "cfg_flatten_v1",
+        "cfg_flatten_v2_hybrid",
+        "yul_microblock_v1",
+        "local_to_state_lift_v1",
+        "opaque_storage_slot_indirection_v1",
+        "inline_internal_v2_diversified"
+      ],
+      "forbidden_risk_tags": [
+        "touches_storage"
+      ]
+    },
+    "access_control": {
+      "forbidden_transform_ids": [
+        "modifier_expand_v1",
+        "predicate_masking_v1",
+        "opaque_predicate_v1",
+        "opaque_predicate_v2_entangled",
+        "chaotic_opaque_predicate_v1",
+        "cfg_flatten_v1",
+        "cfg_flatten_v2_hybrid",
+        "dispatcher_cfg_virtualization_v1"
+      ],
+      "forbidden_risk_tags": [
+        "touches_access_control",
+        "touches_reverts"
+      ]
+    },
+    "arithmetic": {
+      "forbidden_transform_ids": [
+        "predicate_masking_v1",
+        "algebraic_identities_v1"
+      ],
+      "forbidden_risk_tags": []
+    },
+    "revert_semantics": {
+      "forbidden_transform_ids": [
+        "modifier_expand_v1",
+        "predicate_masking_v1",
+        "opaque_predicate_v1",
+        "opaque_predicate_v2_entangled",
+        "chaotic_opaque_predicate_v1",
+        "string_split_v1"
+      ],
+      "forbidden_risk_tags": [
+        "touches_reverts"
+      ]
+    }
+  },
+
+  "transform_weights": {
+    "rename_identifiers_sha1_v1": 5,
+    "rename_identifiers_v2_scoped": 5,
+    "layout_scramble_v1": 4,
+    "dynamic_constants_v1": 5,
+    "constant_encoding_v1": 4,
+    "constant_encoding_v2_layered": 7,
+    "boolean_split_v1": 5,
+    "boolean_split_v2_distributed": 7,
+    "inline_internal_v1": 5,
+    "inline_internal_v2_diversified": 7,
+    "opaque_predicate_v1": 5,
+    "opaque_predicate_v2_entangled": 8,
+    "loop_rewrite_v1": 4,
+    "modifier_expand_v1": 5,
+    "local_to_state_lift_v1": 5,
+    "scalar_to_struct_indirection_v1": 5,
+    "cfg_flatten_v1": 3,
+    "cfg_flatten_v2_hybrid": 6,
+    "stack_variable_aliasing_v1": 4,
+    "dead_code_v1": 4,
+    "predicate_masking_v1": 4,
+    "yul_microblock_v1": 2,
+    "dispatcher_cfg_virtualization_v1": 2,
+    "opaque_storage_slot_indirection_v1": 2,
+    "public_state_accessor_indirection_v1": 5,
+    "chaotic_opaque_predicate_v1": 6,
+    "storage_indirection_v1": 5,
+    "string_split_v1": 4,
+    "algebraic_identities_v1": 4
+  },
+
+  "view_pure_allowed_transforms": [
+    "rename_identifiers_sha1_v1",
+    "rename_identifiers_v2_scoped",
+    "layout_scramble_v1",
+    "constant_encoding_v1",
+    "constant_encoding_v2_layered",
+    "dynamic_constants_v1",
+    "boolean_split_v1",
+    "boolean_split_v2_distributed",
+    "opaque_predicate_v1",
+    "opaque_predicate_v2_entangled",
+    "loop_rewrite_v1",
+    "chaotic_opaque_predicate_v1",
+    "string_split_v1",
+    "algebraic_identities_v1"
+  ],
+
+  "view_pure_blocked_transforms": [
+    "local_to_state_lift_v1",
+    "scalar_to_struct_indirection_v1",
+    "modifier_expand_v1",
+    "cfg_flatten_v1",
+    "cfg_flatten_v2_hybrid",
+    "yul_microblock_v1",
+    "dispatcher_cfg_virtualization_v1",
+    "opaque_storage_slot_indirection_v1",
+    "inline_internal_v1",
+    "inline_internal_v2_diversified",
+    "dead_code_v1",
+    "predicate_masking_v1",
+    "public_state_accessor_indirection_v1",
+    "storage_indirection_v1"
+  ],
+
+  "short_fuzz_enabled": true,
+  "short_fuzz_runs": 64,
+  "short_fuzz_max_tests": 6,
+  "short_fuzz_match_test": "fuzz|invariant",
+  "short_fuzz_fallback_to_full_suite": true
+}

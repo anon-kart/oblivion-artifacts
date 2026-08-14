@@ -1,0 +1,124 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "LLM Transform Plan Schema",
+  "type": "object",
+  "required": [
+    "function",
+    "plan",
+    "rationale",
+    "semantic_contract",
+    "composition_graph"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "function": { "type": "string" },
+    "plan": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["transform_id"],
+        "additionalProperties": false,
+        "properties": {
+          "transform_id": { "type": "string" },
+          "params": {
+            "type": "object",
+            "additionalProperties": true
+          }
+        }
+      }
+    },
+    "rationale": { "type": "string" },
+
+    "semantic_contract": {
+      "type": "object",
+      "required": [
+        "global_invariants",
+        "protected_region_tags",
+        "transform_safety"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "global_invariants": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "protected_region_tags": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "transform_safety": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["transform_id", "why_safe", "preserve_invariants"],
+            "additionalProperties": false,
+            "properties": {
+              "transform_id": { "type": "string" },
+              "why_safe": { "type": "string" },
+              "preserve_invariants": {
+                "type": "array",
+                "items": { "type": "string" }
+              },
+              "avoid_regions": {
+                "type": "array",
+                "items": { "type": "string" }
+              }
+            }
+          }
+        }
+      }
+    },
+
+    "composition_graph": {
+      "type": "object",
+      "required": ["safe_pairs", "unsafe_pairs", "ordering_constraints"],
+      "additionalProperties": false,
+      "properties": {
+        "safe_pairs": {
+          "type": "array",
+          "items": {
+            "type": "array",
+            "minItems": 2,
+            "maxItems": 2,
+            "items": { "type": "string" }
+          }
+        },
+        "unsafe_pairs": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["pair", "reason", "risk"],
+            "additionalProperties": false,
+            "properties": {
+              "pair": {
+                "type": "array",
+                "minItems": 2,
+                "maxItems": 2,
+                "items": { "type": "string" }
+              },
+              "reason": { "type": "string" },
+              "risk": { "type": "number" }
+            }
+          }
+        },
+        "ordering_constraints": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["before", "after", "reason"],
+            "additionalProperties": false,
+            "properties": {
+              "before": { "type": "string" },
+              "after": { "type": "string" },
+              "reason": { "type": "string" }
+            }
+          }
+        },
+        "pair_scores": {
+          "type": "object",
+          "additionalProperties": { "type": "number" }
+        }
+      }
+    }
+  }
+}

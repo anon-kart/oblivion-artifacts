@@ -1,0 +1,128 @@
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.20;
+
+import "forge-std/Test.sol";
+
+{% if inline_uut %}
+// Inline demo UUT
+contract {{ contract_name }} {
+    address public owner;
+
+    constructor() {
+        owner = msg.sender;
+    }
+
+    modifier onlyOwner() {
+        require(msg.sender == owner, "Only owner");
+        _;
+    }
+
+    function transferOwnership(address newOwner) public onlyOwner {
+        owner = newOwner;
+    }
+}
+{% else %}
+import "{{ contract_import_path }}";
+{% endif %}
+
+contract {{ contract_name }}_Harness is Test {
+    {{ contract_name }} internal uut;
+    address internal OWNER = address(0xA11CE);
+    address internal BOB   = address(0xB0B);
+
+    // ---------- Logging helpers (for richer traces) ----------
+
+    function _logContext() internal {
+        emit log_string("Context Info:");
+        emit log_string("Address of Contract: (address)");
+        emit log_address(address(uut));
+        emit log_string("owner: (address)");
+        emit log_address(uut.owner());
+    }
+
+    function _logFinalState() internal {
+        emit log_string("Final State:");
+        emit log_string("Address of Contract: (address)");
+        emit log_address(address(uut));
+        emit log_string("owner: (address)");
+        emit log_address(uut.owner());
+    }
+
+    // Generic Foundry log-dump helper (can be used by later modules)
+    function _printRecordedLogs() internal {
+        Vm.Log[] memory entries = vm.getRecordedLogs();
+        for (uint256 i = 0; i < entries.length; i++) {
+            emit log_string("Event:");
+            emit log_address(entries[i].emitter);
+            for (uint256 t = 0; t < entries[i].topics.length; t++) {
+                emit log_bytes32(entries[i].topics[t]);
+            }
+            emit log_bytes(entries[i].data);
+        }
+    }
+
+    // ---------- Setup ----------
+
+    function setUp() public {
+        vm.prank(OWNER);
+        uut = new {{ contract_name }}();
+    }
+
+    // ---------- Tests ----------
+
+    function test_constructor_setsOwner() public {
+        emit log_string(":::ENTER - test_constructor_setsOwner");
+        _logContext();
+
+        assertEq(uut.owner(), OWNER);
+
+        _logFinalState();
+        emit log_string(":::EXIT - test_constructor_setsOwner");
+    }
+
+    function test_transferOwnership_byOwner_succeeds() public {
+        emit log_string(":::ENTER - test_transferOwnership_byOwner_succeeds");
+        emit log_string("newOwner: (address)");
+        emit log_address(address(0xC0FFEE));
+        _logContext();
+
+        vm.prank(OWNER);
+        uut.transferOwnership(address(0xC0FFEE));
+        assertEq(uut.owner(), address(0xC0FFEE));
+
+        _logFinalState();
+        emit log_string(":::EXIT - test_transferOwnership_byOwner_succeeds");
+    }
+
+    function test_transferOwnership_byNonOwner_reverts() public {
+        emit log_string(":::ENTER - test_transferOwnership_byNonOwner_reverts");
+        emit log_string("newOwner: (address)");
+        emit log_address(address(0xC0FFEE));
+        _logContext();
+
+        vm.prank(BOB);
+        vm.expectRevert(bytes("Only owner"));
+        uut.transferOwnership(address(0xC0FFEE));
+
+        _logFinalState();
+        emit log_string(":::EXIT - test_transferOwnership_byNonOwner_reverts");
+    }
+
+    // Extra fuzz test for more intense exploration of the state space
+    function testFuzz_transferOwnership(address newOwner) public {
+        emit log_string(":::ENTER - testFuzz_transferOwnership");
+        emit log_string("Fuzz Input:");
+        emit log_string("newOwner: (address)");
+        emit log_address(newOwner);
+        _logContext();
+
+        // Avoid obviously-bad or trivial cases
+        vm.assume(newOwner != address(0));
+        vm.prank(OWNER);
+        uut.transferOwnership(newOwner);
+        assertEq(uut.owner(), newOwner);
+
+        _logFinalState();
+        emit log_string(":::EXIT - testFuzz_transferOwnership");
+    }
+}

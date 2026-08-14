@@ -1,0 +1,92 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "OBLIVION Transform Map",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "mapping_kind",
+    "engine_kind",
+    "source",
+    "plan",
+    "contract",
+    "applied",
+    "skipped"
+  ],
+  "properties": {
+    "schema_version": { "type": "string" },
+    "mapping_kind": { "type": "string" },
+    "engine_kind": { "type": "string" },
+    "source": { "type": "string" },
+    "plan": { "type": "string" },
+    "contract": { "type": "string" },
+    "source_hash_original": { "type": "string" },
+    "source_hash_obfuscated": { "type": "string" },
+    "applied_count": { "type": "integer" },
+    "skipped_count": { "type": "integer" },
+    "notes": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "applied": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["sequence", "id", "function", "target", "status"],
+        "properties": {
+          "sequence": { "type": "integer" },
+          "id": { "type": "string" },
+          "transform_id": { "type": "string" },
+          "function": { "type": "string" },
+          "target": { "type": "object" },
+          "params": { "type": "object" },
+          "status": { "type": "string" },
+          "before_signature": { "type": ["string", "null"] },
+          "after_signature": { "type": ["string", "null"] },
+          "original_span": {
+            "type": ["object", "null"],
+            "properties": {
+              "start_offset": { "type": "integer" },
+              "end_offset": { "type": "integer" },
+              "start_line": { "type": "integer" },
+              "end_line": { "type": "integer" },
+              "start_column": { "type": "integer" },
+              "end_column": { "type": "integer" }
+            }
+          },
+          "new_span": {
+            "type": ["object", "null"],
+            "properties": {
+              "start_offset": { "type": "integer" },
+              "end_offset": { "type": "integer" },
+              "start_line": { "type": "integer" },
+              "end_line": { "type": "integer" },
+              "start_column": { "type": "integer" },
+              "end_column": { "type": "integer" }
+            }
+          },
+          "before_excerpt": { "type": ["string", "null"] },
+          "after_excerpt": { "type": ["string", "null"] },
+          "source_hash_before": { "type": "string" },
+          "source_hash_after": { "type": "string" },
+          "details": { "type": "object" }
+        }
+      }
+    },
+    "skipped": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "target", "status", "reason"],
+        "properties": {
+          "id": { "type": "string" },
+          "transform_id": { "type": "string" },
+          "function": { "type": "string" },
+          "target": { "type": "object" },
+          "params": { "type": "object" },
+          "status": { "type": "string" },
+          "reason": { "type": "string" }
+        }
+      }
+    }
+  }
+}

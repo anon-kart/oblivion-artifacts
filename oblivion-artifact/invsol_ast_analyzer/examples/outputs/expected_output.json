@@ -1,0 +1,161 @@
+{
+  "ir_version": "0.1",
+  "contract": {
+    "name": "SimpleToken",
+    "solidity_version": "0.8.30",
+    "functions": [
+      {
+        "contract": "SimpleToken",
+        "name": "mint",
+        "visibility": "public",
+        "mutability": "nonpayable",
+        "modifiers": [],
+        "params": [
+          { "name": "to", "type": "address" },
+          { "name": "amount", "type": "uint256" }
+        ],
+        "returns": [],
+        "loops": [],
+        "requires": [],
+        "reads": ["balanceOf", "totalSupply"],
+        "writes": ["balanceOf", "totalSupply"],
+        "member_accesses": [],
+        "internal_calls": ["Mint"],
+        "external_calls": [],
+        "events_emitted": ["Mint"],
+        "storage_reads": [
+          { "var": "balanceOf", "key": "to" }
+        ],
+        "storage_writes": [
+          { "var": "balanceOf", "key": "to" },
+          { "var": "totalSupply" }
+        ]
+      },
+      {
+        "contract": "SimpleToken",
+        "name": "burn",
+        "visibility": "public",
+        "mutability": "nonpayable",
+        "modifiers": [],
+        "params": [
+          { "name": "amount", "type": "uint256" }
+        ],
+        "returns": [],
+        "loops": [],
+        "requires": ["(balanceOf[msg.sender] >= amount)"],
+        "reads": ["balanceOf", "totalSupply"],
+        "writes": ["balanceOf", "totalSupply"],
+        "member_accesses": ["sender"],
+        "internal_calls": ["Burn", "require"],
+        "external_calls": [],
+        "events_emitted": ["Burn"],
+        "storage_reads": [
+          { "var": "balanceOf", "key": "msg.sender" }
+        ],
+        "storage_writes": [
+          { "var": "balanceOf", "key": "msg.sender" },
+          { "var": "totalSupply" }
+        ]
+      },
+      {
+        "contract": "SimpleToken",
+        "name": "transfer",
+        "visibility": "public",
+        "mutability": "nonpayable",
+        "modifiers": [],
+        "params": [
+          { "name": "to", "type": "address" },
+          { "name": "amount", "type": "uint256" }
+        ],
+        "returns": [{ "type": "bool" }],
+        "loops": [],
+        "requires": ["(balanceOf[msg.sender] >= amount)"],
+        "reads": ["balanceOf"],
+        "writes": ["balanceOf"],
+        "member_accesses": ["sender"],
+        "internal_calls": ["Transfer", "require"],
+        "external_calls": [],
+        "events_emitted": ["Transfer"],
+        "storage_reads": [
+          { "var": "balanceOf", "key": "msg.sender" },
+          { "var": "balanceOf", "key": "to" }
+        ],
+        "storage_writes": [
+          { "var": "balanceOf", "key": "msg.sender" },
+          { "var": "balanceOf", "key": "to" }
+        ]
+      },
+      {
+        "contract": "SimpleToken",
+        "name": "totalSupply",
+        "visibility": "public",
+        "mutability": "view",
+        "modifiers": [],
+        "params": [],
+        "returns": [{ "type": "uint256" }],
+        "loops": [],
+        "requires": [],
+        "reads": ["totalSupply"],
+        "writes": [],
+        "member_accesses": [],
+        "internal_calls": [],
+        "external_calls": [],
+        "events_emitted": [],
+        "storage_reads": [
+          { "var": "totalSupply" }
+        ],
+        "storage_writes": [],
+        "synthetic": true
+      },
+      {
+        "contract": "SimpleToken",
+        "name": "balanceOf",
+        "visibility": "public",
+        "mutability": "view",
+        "modifiers": [],
+        "params": [
+          { "name": "account", "type": "address" }
+        ],
+        "returns": [{ "type": "uint256" }],
+        "loops": [],
+        "requires": [],
+        "reads": ["balanceOf"],
+        "writes": [],
+        "member_accesses": [],
+        "internal_calls": [],
+        "external_calls": [],
+        "events_emitted": [],
+        "storage_reads": [
+          { "var": "balanceOf", "key": "account" }
+        ],
+        "storage_writes": [],
+        "synthetic": true
+      }
+    ],
+    "state": {
+      "variables": [
+        { "contract": "SimpleToken", "name": "balanceOf", "type": "mapping(address => uint256)" },
+        { "contract": "SimpleToken", "name": "totalSupply", "type": "uint256" }
+      ],
+      "mappings": [
+        { "contract": "SimpleToken", "name": "balanceOf", "key": "address", "value": "uint256" }
+      ]
+    },
+    "access_control": [],
+    "access_dependencies": [
+      {
+        "function": "burn",
+        "source": "require",
+        "condition": "(balanceOf[msg.sender] >= amount)",
+        "role": null
+      },
+      {
+        "function": "transfer",
+        "source": "require",
+        "condition": "(balanceOf[msg.sender] >= amount)",
+        "role": null
+      }
+    ]
+  }
+}
+

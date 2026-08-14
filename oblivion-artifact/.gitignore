@@ -1,0 +1,15 @@
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+env/
+.env
+*.egg-info/
+artifacts/
+logs/
+*.log
+*.bak_*
+out/
+cache/
+broadcast/
+.DS_Store

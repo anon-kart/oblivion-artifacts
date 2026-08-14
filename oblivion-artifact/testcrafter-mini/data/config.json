@@ -1,0 +1,8 @@
+{
+  "foundry_project_dir": "artifacts/foundry_project",
+  "contract_import_path": "src/LoopPlayground.sol",
+  "inline_uut": false,
+  "verbose_logs": true,
+  "mapping_snapshot_n": 10,
+  "constructor_args": []
+}

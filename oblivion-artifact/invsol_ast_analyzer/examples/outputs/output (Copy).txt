@@ -1,0 +1,1198 @@
+{
+  "ir_version": "0.1",
+  "contract": {
+    "name": "LoopPlayground",
+    "solidity_version": "0.8.28",
+    "functions": [
+      {
+        "contract": "LoopPlayground",
+        "name": "_requireBound",
+        "visibility": "internal",
+        "mutability": "pure",
+        "modifiers": [],
+        "params": [
+          {
+            "name": "n",
+            "type": "uint256"
+          },
+          {
+            "name": "maxN",
+            "type": "uint256"
+          }
+        ],
+        "returns": [],
+        "loops": [],
+        "requires": [
+          "(n <= maxN)"
+        ],
+        "reads": [],
+        "writes": [],
+        "member_accesses": [],
+        "internal_calls": [
+          "require"
+        ],
+        "external_calls": [],
+        "events_emitted": [],
+        "storage_reads": [],
+        "storage_writes": [],
+        "synthetic": false
+      },
+      {
+        "contract": "LoopPlayground",
+        "name": "constructor",
+        "visibility": "public",
+        "mutability": "nonpayable",
+        "modifiers": [],
+        "params": [
+          {
+            "name": "seed",
+            "type": "uint256[]"
+          }
+        ],
+        "returns": [],
+        "loops": [
+          {
+            "type": "for",
+            "init": "i = 0",
+            "guard": "(i < seed.length)",
+            "update": "(i++)",
+            "body_summary": {
+              "indices": [
+                "i"
+              ],
+              "accumulators": [],
+              "mapping_updates": [],
+              "array_updates": [],
+              "has_external_call_in_loop": true
+            },
+            "bounds": {
+              "index": "i",
+              "lower": "0",
+              "upper": "seed.length",
+              "inclusive_upper": false
+            }
+          }
+        ],
+        "requires": [],
+        "reads": [
+          "grid",
+          "numbers"
+        ],
+        "writes": [],
+        "member_accesses": [
+          "length",
+          "push"
+        ],
+        "internal_calls": [],
+        "external_calls": [
+          "push"
+        ],
+        "events_emitted": [],
+        "storage_reads": [],
+        "storage_writes": [],
+        "synthetic": false
+      },
+      {
+        "contract": "LoopPlayground",
+        "name": "sumNumbersBounded",
+        "visibility": "external",
+        "mutability": "nonpayable",
+        "modifiers": [],
+        "params": [
+          {
+            "name": "limit",
+            "type": "uint256"
+          }
+        ],
+        "returns": [
+          {
+            "type": "uint256"
+          }
+        ],
+        "loops": [
+          {
+            "type": "for",
+            "init": "i = 0",
+            "guard": "(i < n)",
+            "update": "(i++)",
+            "body_summary": {
+              "indices": [
+                "i"
+              ],
+              "accumulators": [
+                "s"
+              ],
+              "mapping_updates": [],
+              "array_updates": [],
+              "has_external_call_in_loop": false
+            },
+            "bounds": {
+              "index": "i",
+              "lower": "0",
+              "upper": "n",
+              "inclusive_upper": false
+            }
+          }
+        ],
+        "requires": [],
+        "reads": [
+          "numbers"
+        ],
+        "writes": [],
+        "member_accesses": [
+          "length"
+        ],
+        "internal_calls": [
+          "SumResult"
+        ],
+        "external_calls": [],
+        "events_emitted": [
+          "SumResult"
+        ],
+        "storage_reads": [
+          {
+            "var": "numbers",
+            "key": "i"
+          }
+        ],
+        "storage_writes": [],
+        "synthetic": false
+      },
+      {
+        "contract": "LoopPlayground",
+        "name": "sumUnchecked",
+        "visibility": "external",
+        "mutability": "nonpayable",
+        "modifiers": [],
+        "params": [
+          {
+            "name": "limit",
+            "type": "uint256"
+          }
+        ],
+        "returns": [
+          {
+            "type": "uint256"
+          }
+        ],
+        "loops": [
+          {
+            "type": "for",
+            "init": "i = 0",
+            "guard": "(i < n)",
+            "update": "",
+            "body_summary": {
+              "indices": [
+                "i"
+              ],
+              "accumulators": [
+                "s"
+              ],
+              "mapping_updates": [],
+              "array_updates": [],
+              "has_external_call_in_loop": false
+            },
+            "bounds": {
+              "index": "i",
+              "lower": "0",
+              "upper": "n",
+              "inclusive_upper": false
+            }
+          }
+        ],
+        "requires": [],
+        "reads": [
+          "numbers"
+        ],
+        "writes": [],
+        "member_accesses": [
+          "length"
+        ],
+        "internal_calls": [
+          "SumResult"
+        ],
+        "external_calls": [],
+        "events_emitted": [
+          "SumResult"
+        ],
+        "storage_reads": [
+          {
+            "var": "numbers",
+            "key": "i"
+          }
+        ],
+        "storage_writes": [],
+        "synthetic": false
+      },
+      {
+        "contract": "LoopPlayground",
+        "name": "firstGreaterThan",
+        "visibility": "external",
+        "mutability": "nonpayable",
+        "modifiers": [],
+        "params": [
+          {
+            "name": "x",
+            "type": "uint256"
+          }
+        ],
+        "returns": [
+          {
+            "type": "int256"
+          }
+        ],
+        "loops": [
+          {
+            "type": "for",
+            "init": "i = 0",
+            "guard": "(i < numbers.length)",
+            "update": "(i++)",
+            "body_summary": {
+              "indices": [
+                "i"
+              ],
+              "accumulators": [],
+              "mapping_updates": [],
+              "array_updates": [],
+              "has_external_call_in_loop": false
+            },
+            "bounds": {
+              "index": "i",
+              "lower": "0",
+              "upper": "numbers.length",
+              "inclusive_upper": false
+            }
+          }
+        ],
+        "requires": [],
+        "reads": [
+          "numbers"
+        ],
+        "writes": [],
+        "member_accesses": [
+          "length"
+        ],
+        "internal_calls": [
+          "FoundAt"
+        ],
+        "external_calls": [],
+        "events_emitted": [
+          "FoundAt"
+        ],
+        "storage_reads": [
+          {
+            "var": "numbers",
+            "key": "i"
+          }
+        ],
+        "storage_writes": [],
+        "synthetic": false
+      },
+      {
+        "contract": "LoopPlayground",
+        "name": "bubbleSortLocal",
+        "visibility": "external",
+        "mutability": "nonpayable",
+        "modifiers": [],
+        "params": [
+          {
+            "name": "maxN",
+            "type": "uint256"
+          }
+        ],
+        "returns": [
+          {
+            "type": "uint256[]"
+          }
+        ],
+        "loops": [
+          {
+            "type": "for",
+            "init": "i = 0",
+            "guard": "(i < n)",
+            "update": "(i++)",
+            "body_summary": {
+              "indices": [
+                "i"
+              ],
+              "accumulators": [],
+              "mapping_updates": [],
+              "array_updates": [],
+              "has_external_call_in_loop": false
+            },
+            "bounds": {
+              "index": "i",
+              "lower": "0",
+              "upper": "n",
+              "inclusive_upper": false
+            }
+          },
+          {
+            "type": "for",
+            "init": "i = 0",
+            "guard": "(i < (n - 1))",
+            "update": "(i++)",
+            "body_summary": {
+              "indices": [
+                "i"
+              ],
+              "accumulators": [],
+              "mapping_updates": [],
+              "array_updates": [],
+              "has_external_call_in_loop": false
+            },
+            "bounds": {
+              "index": "i",
+              "lower": "0",
+              "upper": "(n - 1)",
+              "inclusive_upper": false
+            }
+          },
+          {
+            "type": "for",
+            "init": "j = 0",
+            "guard": "(j < ((n - 1) - i))",
+            "update": "(j++)",
+            "body_summary": {
+              "indices": [
+                "j"
+              ],
+              "accumulators": [],
+              "mapping_updates": [],
+              "array_updates": [],
+              "has_external_call_in_loop": false
+            },
+            "bounds": {
+              "index": "j",
+              "lower": "0",
+              "upper": "((n - 1) - i)",
+              "inclusive_upper": false
+            }
+          }
+        ],
+        "requires": [],
+        "reads": [
+          "numbers"
+        ],
+        "writes": [],
+        "member_accesses": [
+          "length"
+        ],
+        "internal_calls": [
+          "Sorted",
+          "_requireBound"
+        ],
+        "external_calls": [],
+        "events_emitted": [
+          "Sorted"
+        ],
+        "storage_reads": [
+          {
+            "var": "numbers",
+            "key": "i"
+          }
+        ],
+        "storage_writes": [],
+        "synthetic": false
+      },
+      {
+        "contract": "LoopPlayground",
+        "name": "sumGridDots",
+        "visibility": "external",
+        "mutability": "nonpayable",
+        "modifiers": [],
+        "params": [],
+        "returns": [
+          {
+            "type": "uint256"
+          }
+        ],
+        "loops": [
+          {
+            "type": "for",
+            "init": "r = 0",
+            "guard": "(r < grid.length)",
+            "update": "(r++)",
+            "body_summary": {
+              "indices": [
+                "r"
+              ],
+              "accumulators": [
+                "total"
+              ],
+              "mapping_updates": [],
+              "array_updates": [],
+              "has_external_call_in_loop": false
+            },
+            "bounds": {
+              "index": "r",
+              "lower": "0",
+              "upper": "grid.length",
+              "inclusive_upper": false
+            }
+          },
+          {
+            "type": "for",
+            "init": "c = 0",
+            "guard": "(c < row.length)",
+            "update": "(c++)",
+            "body_summary": {
+              "indices": [
+                "c"
+              ],
+              "accumulators": [
+                "total"
+              ],
+              "mapping_updates": [],
+              "array_updates": [],
+              "has_external_call_in_loop": false
+            },
+            "bounds": {
+              "index": "c",
+              "lower": "0",
+              "upper": "row.length",
+              "inclusive_upper": false
+            }
+          }
+        ],
+        "requires": [],
+        "reads": [
+          "grid"
+        ],
+        "writes": [],
+        "member_accesses": [
+          "length"
+        ],
+        "internal_calls": [
+          "MatrixDot",
+          "SumResult"
+        ],
+        "external_calls": [],
+        "events_emitted": [
+          "MatrixDot",
+          "SumResult"
+        ],
+        "storage_reads": [
+          {
+            "var": "grid",
+            "key": "r"
+          }
+        ],
+        "storage_writes": [],
+        "synthetic": false
+      },
+      {
+        "contract": "LoopPlayground",
+        "name": "fillSequence",
+        "visibility": "external",
+        "mutability": "nonpayable",
+        "modifiers": [],
+        "params": [
+          {
+            "name": "n",
+            "type": "uint256"
+          },
+          {
+            "name": "start",
+            "type": "uint256"
+          },
+          {
+            "name": "step",
+            "type": "uint256"
+          },
+          {
+            "name": "maxN",
+            "type": "uint256"
+          }
+        ],
+        "returns": [],
+        "loops": [
+          {
+            "type": "for",
+            "init": "i = 0",
+            "guard": "(i < n)",
+            "update": "(i++)",
+            "body_summary": {
+              "indices": [
+                "i"
+              ],
+              "accumulators": [
+                "cur"
+              ],
+              "mapping_updates": [],
+              "array_updates": [
+                "numbers"
+              ],
+              "has_external_call_in_loop": false
+            },
+            "bounds": {
+              "index": "i",
+              "lower": "0",
+              "upper": "n",
+              "inclusive_upper": false
+            }
+          }
+        ],
+        "requires": [],
+        "reads": [
+          "numbers"
+        ],
+        "writes": [
+          "numbers"
+        ],
+        "member_accesses": [],
+        "internal_calls": [
+          "Filled",
+          "_requireBound"
+        ],
+        "external_calls": [],
+        "events_emitted": [
+          "Filled"
+        ],
+        "storage_reads": [
+          {
+            "var": "numbers",
+            "key": "i"
+          }
+        ],
+        "storage_writes": [
+          {
+            "var": "numbers",
+            "key": null
+          },
+          {
+            "var": "numbers",
+            "key": "i"
+          }
+        ],
+        "synthetic": false
+      },
+      {
+        "contract": "LoopPlayground",
+        "name": "appendMany",
+        "visibility": "external",
+        "mutability": "nonpayable",
+        "modifiers": [],
+        "params": [
+          {
+            "name": "n",
+            "type": "uint256"
+          },
+          {
+            "name": "base",
+            "type": "uint256"
+          },
+          {
+            "name": "maxN",
+            "type": "uint256"
+          }
+        ],
+        "returns": [],
+        "loops": [
+          {
+            "type": "for",
+            "init": "i = 0",
+            "guard": "(i < n)",
+            "update": "",
+            "body_summary": {
+              "indices": [
+                "i"
+              ],
+              "accumulators": [],
+              "mapping_updates": [],
+              "array_updates": [],
+              "has_external_call_in_loop": true
+            },
+            "bounds": {
+              "index": "i",
+              "lower": "0",
+              "upper": "n",
+              "inclusive_upper": false
+            }
+          }
+        ],
+        "requires": [],
+        "reads": [
+          "numbers"
+        ],
+        "writes": [],
+        "member_accesses": [
+          "length",
+          "push"
+        ],
+        "internal_calls": [
+          "Filled",
+          "_requireBound"
+        ],
+        "external_calls": [
+          "push"
+        ],
+        "events_emitted": [
+          "Filled"
+        ],
+        "storage_reads": [],
+        "storage_writes": [],
+        "synthetic": false
+      },
+      {
+        "contract": "LoopPlayground",
+        "name": "deposit",
+        "visibility": "external",
+        "mutability": "payable",
+        "modifiers": [],
+        "params": [],
+        "returns": [],
+        "loops": [],
+        "requires": [],
+        "reads": [
+          "depositorKeys",
+          "deposits"
+        ],
+        "writes": [
+          "deposits"
+        ],
+        "member_accesses": [
+          "push",
+          "sender",
+          "value"
+        ],
+        "internal_calls": [
+          "UpdatedDeposit"
+        ],
+        "external_calls": [
+          "push"
+        ],
+        "events_emitted": [
+          "UpdatedDeposit"
+        ],
+        "storage_reads": [
+          {
+            "var": "deposits",
+            "key": "msg.sender"
+          }
+        ],
+        "storage_writes": [
+          {
+            "var": "deposits",
+            "key": "msg.sender"
+          }
+        ],
+        "synthetic": false
+      },
+      {
+        "contract": "LoopPlayground",
+        "name": "accumulateDeposits",
+        "visibility": "external",
+        "mutability": "nonpayable",
+        "modifiers": [],
+        "params": [
+          {
+            "name": "limit",
+            "type": "uint256"
+          }
+        ],
+        "returns": [
+          {
+            "type": "uint256"
+          },
+          {
+            "type": "uint256"
+          }
+        ],
+        "loops": [
+          {
+            "type": "for",
+            "init": "i = 0",
+            "guard": "(i < n)",
+            "update": "(i++)",
+            "body_summary": {
+              "indices": [
+                "i"
+              ],
+              "accumulators": [
+                "total"
+              ],
+              "mapping_updates": [],
+              "array_updates": [],
+              "has_external_call_in_loop": false
+            },
+            "bounds": {
+              "index": "i",
+              "lower": "0",
+              "upper": "n",
+              "inclusive_upper": false
+            }
+          }
+        ],
+        "requires": [],
+        "reads": [
+          "depositorKeys",
+          "deposits"
+        ],
+        "writes": [],
+        "member_accesses": [
+          "length"
+        ],
+        "internal_calls": [
+          "Accumulated"
+        ],
+        "external_calls": [],
+        "events_emitted": [
+          "Accumulated"
+        ],
+        "storage_reads": [
+          {
+            "var": "depositorKeys",
+            "key": "i"
+          },
+          {
+            "var": "deposits",
+            "key": "depositorKeys[i]"
+          }
+        ],
+        "storage_writes": [],
+        "synthetic": false
+      },
+      {
+        "contract": "LoopPlayground",
+        "name": "triangularAccumulate",
+        "visibility": "external",
+        "mutability": "pure",
+        "modifiers": [],
+        "params": [
+          {
+            "name": "n",
+            "type": "uint256"
+          },
+          {
+            "name": "maxN",
+            "type": "uint256"
+          }
+        ],
+        "returns": [
+          {
+            "type": "uint256"
+          }
+        ],
+        "loops": [
+          {
+            "type": "for",
+            "init": "i = 1",
+            "guard": "(i <= n)",
+            "update": "(i++)",
+            "body_summary": {
+              "indices": [
+                "i"
+              ],
+              "accumulators": [
+                "total"
+              ],
+              "mapping_updates": [],
+              "array_updates": [],
+              "has_external_call_in_loop": false
+            },
+            "bounds": {
+              "index": "i",
+              "lower": "1",
+              "upper": "n",
+              "inclusive_upper": true
+            }
+          },
+          {
+            "type": "for",
+            "init": "j = 1",
+            "guard": "(j <= i)",
+            "update": "(j++)",
+            "body_summary": {
+              "indices": [
+                "j"
+              ],
+              "accumulators": [
+                "total"
+              ],
+              "mapping_updates": [],
+              "array_updates": [],
+              "has_external_call_in_loop": false
+            },
+            "bounds": {
+              "index": "j",
+              "lower": "1",
+              "upper": "i",
+              "inclusive_upper": true
+            }
+          }
+        ],
+        "requires": [
+          "(n <= maxN)"
+        ],
+        "reads": [],
+        "writes": [],
+        "member_accesses": [],
+        "internal_calls": [
+          "require"
+        ],
+        "external_calls": [],
+        "events_emitted": [],
+        "storage_reads": [],
+        "storage_writes": [],
+        "synthetic": false
+      },
+      {
+        "contract": "LoopPlayground",
+        "name": "scaledAddToGrid",
+        "visibility": "external",
+        "mutability": "nonpayable",
+        "modifiers": [],
+        "params": [
+          {
+            "name": "scale",
+            "type": "uint256"
+          },
+          {
+            "name": "maxCells",
+            "type": "uint256"
+          }
+        ],
+        "returns": [
+          {
+            "type": "uint256"
+          }
+        ],
+        "loops": [
+          {
+            "type": "for",
+            "init": "r = 0",
+            "guard": "(r < grid.length)",
+            "update": "(r++)",
+            "body_summary": {
+              "indices": [
+                "r"
+              ],
+              "accumulators": [],
+              "mapping_updates": [],
+              "array_updates": [
+                "grid"
+              ],
+              "has_external_call_in_loop": false
+            },
+            "bounds": {
+              "index": "r",
+              "lower": "0",
+              "upper": "grid.length",
+              "inclusive_upper": false
+            }
+          },
+          {
+            "type": "for",
+            "init": "c = 0",
+            "guard": "(c < row.length)",
+            "update": "(c++)",
+            "body_summary": {
+              "indices": [
+                "c"
+              ],
+              "accumulators": [],
+              "mapping_updates": [],
+              "array_updates": [
+                "grid"
+              ],
+              "has_external_call_in_loop": false
+            },
+            "bounds": {
+              "index": "c",
+              "lower": "0",
+              "upper": "row.length",
+              "inclusive_upper": false
+            }
+          }
+        ],
+        "requires": [],
+        "reads": [
+          "grid"
+        ],
+        "writes": [
+          "grid"
+        ],
+        "member_accesses": [
+          "length"
+        ],
+        "internal_calls": [
+          "SumResult"
+        ],
+        "external_calls": [],
+        "events_emitted": [
+          "SumResult"
+        ],
+        "storage_reads": [
+          {
+            "var": "grid",
+            "key": "c"
+          },
+          {
+            "var": "grid",
+            "key": "r"
+          }
+        ],
+        "storage_writes": [
+          {
+            "var": "grid",
+            "key": "c"
+          }
+        ],
+        "synthetic": false
+      },
+      {
+        "contract": "LoopPlayground",
+        "name": "pushRow",
+        "visibility": "external",
+        "mutability": "nonpayable",
+        "modifiers": [],
+        "params": [
+          {
+            "name": "row",
+            "type": "uint256[]"
+          },
+          {
+            "name": "maxCols",
+            "type": "uint256"
+          }
+        ],
+        "returns": [],
+        "loops": [],
+        "requires": [],
+        "reads": [
+          "grid"
+        ],
+        "writes": [],
+        "member_accesses": [
+          "length",
+          "push"
+        ],
+        "internal_calls": [
+          "_requireBound"
+        ],
+        "external_calls": [
+          "push"
+        ],
+        "events_emitted": [],
+        "storage_reads": [],
+        "storage_writes": [],
+        "synthetic": false
+      },
+      {
+        "contract": "LoopPlayground",
+        "name": "numbersLen",
+        "visibility": "external",
+        "mutability": "view",
+        "modifiers": [],
+        "params": [],
+        "returns": [
+          {
+            "type": "uint256"
+          }
+        ],
+        "loops": [],
+        "requires": [],
+        "reads": [
+          "numbers"
+        ],
+        "writes": [],
+        "member_accesses": [
+          "length"
+        ],
+        "internal_calls": [],
+        "external_calls": [],
+        "events_emitted": [],
+        "storage_reads": [],
+        "storage_writes": [],
+        "synthetic": false
+      },
+      {
+        "contract": "LoopPlayground",
+        "name": "gridDims",
+        "visibility": "external",
+        "mutability": "view",
+        "modifiers": [],
+        "params": [],
+        "returns": [
+          {
+            "type": "uint256"
+          },
+          {
+            "type": "uint256"
+          }
+        ],
+        "loops": [],
+        "requires": [],
+        "reads": [
+          "grid"
+        ],
+        "writes": [],
+        "member_accesses": [
+          "length"
+        ],
+        "internal_calls": [],
+        "external_calls": [],
+        "events_emitted": [],
+        "storage_reads": [
+          {
+            "var": "grid",
+            "key": "0"
+          }
+        ],
+        "storage_writes": [],
+        "synthetic": false
+      },
+      {
+        "contract": "LoopPlayground",
+        "name": "numbers",
+        "visibility": "public",
+        "mutability": "view",
+        "modifiers": [],
+        "params": [
+          {
+            "name": "index",
+            "type": "uint256"
+          }
+        ],
+        "returns": [
+          {
+            "type": "uint256"
+          }
+        ],
+        "loops": [],
+        "requires": [],
+        "reads": [],
+        "writes": [],
+        "member_accesses": [],
+        "internal_calls": [],
+        "external_calls": [],
+        "events_emitted": [],
+        "storage_reads": [],
+        "storage_writes": [],
+        "synthetic": false
+      },
+      {
+        "contract": "LoopPlayground",
+        "name": "grid",
+        "visibility": "public",
+        "mutability": "view",
+        "modifiers": [],
+        "params": [
+          {
+            "name": "index",
+            "type": "uint256"
+          }
+        ],
+        "returns": [
+          {
+            "type": "uint256[]"
+          }
+        ],
+        "loops": [],
+        "requires": [],
+        "reads": [],
+        "writes": [],
+        "member_accesses": [],
+        "internal_calls": [],
+        "external_calls": [],
+        "events_emitted": [],
+        "storage_reads": [],
+        "storage_writes": [],
+        "synthetic": false
+      },
+      {
+        "contract": "LoopPlayground",
+        "name": "deposits",
+        "visibility": "public",
+        "mutability": "view",
+        "modifiers": [],
+        "params": [
+          {
+            "name": "account",
+            "type": "address"
+          }
+        ],
+        "returns": [
+          {
+            "type": "uint256"
+          }
+        ],
+        "loops": [],
+        "requires": [],
+        "reads": [],
+        "writes": [],
+        "member_accesses": [],
+        "internal_calls": [],
+        "external_calls": [],
+        "events_emitted": [],
+        "storage_reads": [],
+        "storage_writes": [],
+        "synthetic": false
+      },
+      {
+        "contract": "LoopPlayground",
+        "name": "depositorKeys",
+        "visibility": "public",
+        "mutability": "view",
+        "modifiers": [],
+        "params": [
+          {
+            "name": "index",
+            "type": "uint256"
+          }
+        ],
+        "returns": [
+          {
+            "type": "address"
+          }
+        ],
+        "loops": [],
+        "requires": [],
+        "reads": [],
+        "writes": [],
+        "member_accesses": [],
+        "internal_calls": [],
+        "external_calls": [],
+        "events_emitted": [],
+        "storage_reads": [],
+        "storage_writes": [],
+        "synthetic": false
+      }
+    ],
+    "state": {
+      "variables": [
+        {
+          "contract": "LoopPlayground",
+          "name": "numbers",
+          "type": "uint256[]"
+        },
+        {
+          "contract": "LoopPlayground",
+          "name": "grid",
+          "type": "uint256[][]"
+        },
+        {
+          "contract": "LoopPlayground",
+          "name": "deposits",
+          "type": "mapping(address => uint256)"
+        },
+        {
+          "contract": "LoopPlayground",
+          "name": "depositorKeys",
+          "type": "address[]"
+        }
+      ],
+      "mappings": [
+        {
+          "contract": "LoopPlayground",
+          "name": "deposits",
+          "key": "address",
+          "value": "uint256"
+        }
+      ]
+    },
+    "access_control": [],
+    "access_dependencies": []
+  }
+}

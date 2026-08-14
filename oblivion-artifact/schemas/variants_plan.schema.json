@@ -1,0 +1,109 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "OBLIVION Variants Plan",
+  "type": "object",
+  "additionalProperties": true,
+  "required": ["contract", "source_file", "plans"],
+  "properties": {
+    "id": { "type": "string" },
+
+    "contract": { "type": "string" },
+    "source_file": { "type": "string" },
+
+    "meta": {
+      "type": "object",
+      "additionalProperties": true
+    },
+
+    "source": {
+      "type": "string",
+      "description": "Origin of plan generation",
+      "enum": ["deterministic", "llm"]
+    },
+
+    "prompt_id": {
+      "type": "string",
+      "description": "Stable identifier for the prompt trace artifact (if source==llm)"
+    },
+
+    "attempt_id": {
+      "type": "string",
+      "description": "LLM repair attempt identifier (if source==llm)"
+    },
+
+    "plans": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": true,
+        "required": ["function", "tier", "selected_transforms"],
+        "properties": {
+          "function": { "type": "string" },
+          "full_name": { "type": "string" },
+
+          "tier": { "type": "integer", "minimum": 0, "maximum": 3 },
+          "tier_reason": { "type": "string" },
+
+          "category": { "type": "string" },
+          "rationale": { "type": "string" },
+
+          "econ_score": { "type": "number", "minimum": 0.0, "maximum": 1.0 },
+          "sec_score": { "type": "number", "minimum": 0.0, "maximum": 1.0 },
+          "sec_severity_max": { "type": "string" },
+
+          "tests_to_run": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+
+          "allowed_transforms": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+
+          "selected_transforms": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": true,
+              "required": ["id", "target", "params"],
+              "properties": {
+                "id": { "type": "string" },
+                "target": {
+                  "type": "object",
+                  "additionalProperties": true
+                },
+                "params": {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+
+    "transforms": {
+      "type": "array",
+      "description": "Optional flat plan form (mainly optimizer / legacy).",
+      "items": {
+        "type": "object",
+        "additionalProperties": true,
+        "required": ["id", "target", "params"],
+        "properties": {
+          "id": { "type": "string" },
+          "target": {
+            "type": "object",
+            "additionalProperties": true
+          },
+          "params": {
+            "type": "object",
+            "additionalProperties": true
+          }
+        }
+      }
+    }
+  }
+}
+

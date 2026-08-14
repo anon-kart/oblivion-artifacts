@@ -1,0 +1,18 @@
+
+[project]
+name = "testcrafter-mini"
+version = "0.1.0"
+description = "Scaffold for the TestCrafter module"
+requires-python = ">=3.9"
+dependencies = [
+    "jinja2>=3.1.0",
+    "pyyaml>=6.0",
+    "rich>=13.0.0",
+    "typing_extensions>=4.7.0",
+]
+
+[tool.pyright]
+typeCheckingMode = "basic"
+
+[tool.setuptools]
+packages = ["testcrafter"]

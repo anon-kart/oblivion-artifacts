@@ -1,0 +1,146 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Oblivion Obfuscation Candidates",
+  "type": "object",
+  "required": ["contract", "source_file", "functions"],
+  "properties": {
+    "contract": {
+      "type": "string"
+    },
+    "source_file": {
+      "type": "string"
+    },
+    "functions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "function",
+          "visibility",
+          "state_mutability",
+          "category",
+          "rationale"
+        ],
+        "properties": {
+          "function": {
+            "type": "string"
+          },
+
+          "full_name": {
+            "type": "string"
+          },
+
+          "visibility": {
+            "type": "string"
+          },
+
+          "state_mutability": {
+            "type": "string"
+          },
+
+          "has_loops": {
+            "type": "boolean"
+          },
+
+          "loop_count": {
+            "type": "integer"
+          },
+
+          "static_hits": {
+            "type": "integer"
+          },
+
+          "dynamic_calls": {
+            "type": "integer"
+          },
+
+          "category": {
+            "type": "string",
+            "enum": [
+              "no_obfuscation",
+              "light_obfuscation_ok",
+              "aggressive_obfuscation_ok",
+              "unused_or_uncovered"
+            ]
+          },
+
+          "rationale": {
+            "type": "string"
+          },
+
+          "tests_touching": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+
+          "coverage_score": {
+            "type": "number"
+          },
+
+          "exec_weight": {
+            "type": "number"
+          },
+
+          "impact_score": {
+            "type": "number"
+          },
+
+          "econ_score": {
+            "type": "number"
+          },
+
+          "sec_score": {
+            "type": "number"
+          },
+
+          "sec_severity": {
+            "type": "string"
+          },
+
+          "tier": {
+            "type": "integer"
+          },
+
+          "tier_inputs": {
+            "type": "object",
+            "additionalProperties": true
+          },
+
+          "candidate_transforms": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["id"],
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+
+                "desc": {
+                  "type": "string"
+                },
+
+                "estimated_gas_delta_pct": {
+                  "type": "number"
+                },
+
+                "risk_tags": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+
+                "enabled": {
+                  "type": "boolean"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

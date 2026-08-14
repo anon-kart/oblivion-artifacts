@@ -1,0 +1,14 @@
+{
+  "ir_version": "0.1",
+  "contract": {
+    "name": "Placeholder",
+    "solidity_version": "0.8.30",
+    "functions": [],
+    "state": {
+      "variables": [],
+      "mappings": []
+    },
+    "access_control": [],
+    "access_dependencies": []
+  }
+}

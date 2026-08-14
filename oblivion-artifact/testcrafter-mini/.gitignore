@@ -1,0 +1,23 @@
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+.env
+
+# Build / tooling
+dist/
+build/
+*.egg-info/
+
+# Editors
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+
+# Outputs
+outputs/
+logs/
+artifacts/
